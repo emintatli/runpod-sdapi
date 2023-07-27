@@ -2,7 +2,6 @@ FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PIP_PREFER_BINARY=1 \
-    ROOT=/workspace/stable-diffusion-webui \
     PYTHONUNBUFFERED=1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -34,7 +33,8 @@ RUN apt update && \
 
 
 # Add RunPod Handler and Docker container start script
-COPY start.sh rp_handler.py /
+WORKDIR /
+COPY start.sh rp_handler.py ./
 
 # Start the container
 RUN chmod +x /start.sh
