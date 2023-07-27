@@ -1,0 +1,41 @@
+FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PIP_PREFER_BINARY=1 \
+    ROOT=/workspace/stable-diffusion-webui \
+    PYTHONUNBUFFERED=1
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Upgrade apt packages and install required dependencies
+RUN apt update && \
+    apt upgrade -y && \
+    apt install -y \
+      python3-dev \
+      fonts-dejavu-core \
+      rsync \
+      git \
+      jq \
+      moreutils \
+      aria2 \
+      wget \
+      curl \
+      libglib2.0-0 \
+      libsm6 \
+      libgl1 \
+      libxrender1 \
+      libxext6 \
+      ffmpeg \
+      libgoogle-perftools-dev \
+      procps && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get clean -y
+
+
+# Add RunPod Handler and Docker container start script
+COPY start.sh rp_handler.py /
+
+# Start the container
+RUN chmod +x /start.sh
+CMD /start.sh
