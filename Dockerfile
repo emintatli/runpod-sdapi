@@ -34,10 +34,6 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean -y
 
-# Remove the empty workspace directory, link to runpod network volume
-RUN rm -rf /workspace && \
-    ln -s /runpod-volume /workspace
-
 # Add RunPod Handler and Docker container start script
 COPY start.sh rp_handler.py ./
 

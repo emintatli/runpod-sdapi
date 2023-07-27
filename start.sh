@@ -2,6 +2,10 @@
 
 echo "Worker Initiated"
 
+echo "Symlinking files from Network Volume"
+rm -rf /workspace && \
+  ln -s /runpod-volume /workspace
+
 echo "Starting WebUI API"
 source /workspace/venv/bin/activate
 export LD_PRELOAD=libtcmalloc.so
@@ -19,7 +23,7 @@ python /workspace/stable-diffusion-webui/webui.py \
   --nowebui \
   --skip-version-check \
   --no-hashing \
-  --no-download-sd-model > /workspace/logs/webui.log 2>&1 &
+  --no-download-sd-model /workspace/logs/webui.log 2>&1 &
 deactivate
 
 echo "Starting RunPod Handler"
