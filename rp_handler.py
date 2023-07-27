@@ -78,8 +78,6 @@ def validate_payload(event):
         validated_input = validate(payload, TXT2IMG_SCHEMA)
     elif endpoint == 'img2img':
         validated_input = validate(payload, IMG2IMG_SCHEMA)
-    elif endpoint == 'sd-models':
-        validated_input = validate(payload, MODELS_SCHEMA)
     elif endpoint == 'options' and method == 'POST':
         validated_input = validate(payload, OPTIONS_SCHEMA)
 

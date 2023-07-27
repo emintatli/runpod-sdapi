@@ -1,13 +1,35 @@
+import io
 import time
 import json
+import uuid
+import base64
 import requests
+from PIL import Image
 
-base_url = f'http://127.0.0.1:8000'
+BASE_URL = f'http://127.0.0.1:8000'
+OUTPUT_FORMAT = 'JPEG'
+
+
+def encode_image_to_base64(image_path):
+    with open(image_path, 'rb') as image_file:
+        image_data = image_file.read()
+        encoded_data = base64.b64encode(image_data).decode('utf-8')
+        return encoded_data
+
+
+def save_result_image(resp_json):
+    img = Image.open(io.BytesIO(base64.b64decode(resp_json['output']['image'])))
+    file_extension = 'jpeg' if OUTPUT_FORMAT == 'JPEG' else 'png'
+    output_file = f'{uuid.uuid4()}.{file_extension}'
+
+    with open(output_file, 'wb') as f:
+        print(f'Saving image: {output_file}')
+        img.save(f, format=OUTPUT_FORMAT)
 
 
 def post_request(payload):
     r = requests.post(
-        f'{base_url}/runsync',
+        f'{BASE_URL}/runsync',
         json=payload
     )
 
@@ -28,7 +50,7 @@ def post_request(payload):
 
                 while request_in_queue:
                     r = requests.get(
-                        f'{base_url}/status/{request_id}',
+                        f'{BASE_URL}/status/{request_id}',
                     )
 
                     print(f'Status code from RunPod status endpoint: {r.status_code}')

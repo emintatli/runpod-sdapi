@@ -70,27 +70,27 @@ IMG2IMG_SCHEMA = {
     'seed': {
         'type': int,
         'required': False,
-        'default': -1,
+        'default': -1
     },
     'subseed': {
         'type': int,
         'required': False,
-        'default': -1,
+        'default': -1
     },
     'subseed_strength': {
         'type': int,
         'required': False,
-        'default': 0,
+        'default': 0
     },
     'seed_resize_from_h': {
         'type': int,
         'required': False,
-        'default': -1,
+        'default': -1
     },
     'seed_resize_from_w': {
         'type': int,
         'required': False,
-        'default': -1,
+        'default': -1
     },
     'sampler_name': {
         'type': str,
@@ -124,52 +124,52 @@ IMG2IMG_SCHEMA = {
     'batch_size': {
         'type': int,
         'required': False,
-        'default': 1,
+        'default': 1
     },
     'n_iter': {
         'type': int,
         'required': False,
-        'default': 1,
+        'default': 1
     },
     'steps': {
         'type': int,
         'required': False,
-        'default': 20,
+        'default': 20
     },
     'cfg_scale': {
         'type': float,
         'required': False,
-        'default': 7,
+        'default': 7
     },
     'width': {
         'type': int,
         'required': False,
-        'default': 512,
+        'default': 512
     },
     'height': {
         'type': int,
         'required': False,
-        'default': 512,
+        'default': 512
     },
     'restore_faces': {
         'type': bool,
         'required': False,
-        'default': False,
+        'default': False
     },
     'tiling': {
         'type': bool,
         'required': False,
-        'default': False,
+        'default': False
     },
     'do_not_save_samples': {
         'type': bool,
         'required': False,
-        'default': False,
+        'default': False
     },
     'do_not_save_grid': {
         'type': bool,
         'required': False,
-        'default': False,
+        'default': False
     },
     'negative_prompt': {
         'type': str,
@@ -179,47 +179,47 @@ IMG2IMG_SCHEMA = {
     'eta': {
         'type': int,
         'required': False,
-        'default': 0,
+        'default': 0
     },
     's_min_uncond': {
         'type': int,
         'required': False,
-        'default': 0,
+        'default': 0
     },
     's_churn': {
         'type': int,
         'required': False,
-        'default': 0,
+        'default': 0
     },
     's_tmax': {
         'type': int,
         'required': False,
-        'default': 0,
+        'default': 0
     },
     's_tmin': {
         'type': int,
         'required': False,
-        'default': 0,
+        'default': 0
     },
     's_noise': {
         'type': int,
         'required': False,
-        'default': 0,
+        'default': 0
     },
     'override_settings': {
         'type': dict,
         'required': False,
-        'default': {},
+        'default': {}
     },
     'override_settings_restore_afterwards': {
         'type': bool,
         'required': False,
-        'default': True,
+        'default': True
     },
     'script_args': {
         'type': list,
         'required': False,
-        'default': [],
+        'default': []
     },
     'sampler_index': {
         'type': str,
@@ -253,26 +253,26 @@ IMG2IMG_SCHEMA = {
     'include_init_images': {
         'type': bool,
         'required': False,
-        'default': False,
+        'default': False
     },
     'script_name': {
         'type': str,
         'required': False,
-        'default': '',
+        'default': ''
     },
     'send_images': {
         'type': bool,
         'required': False,
-        'default': True,
+        'default': True
     },
     'save_images': {
         'type': bool,
         'required': False,
-        'default': False,
+        'default': False
     },
     'alwayson_scripts': {
         'type': dict,
         'required': False,
-        'default': {},
+        'default': {}
     }
 }
