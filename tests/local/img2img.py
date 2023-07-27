@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from util import post_request
+from util import *
 
 
 if __name__ == '__main__':
@@ -14,19 +14,20 @@ if __name__ == '__main__':
             },
             "payload": {
                 "init_images": [
-
+                    encode_image_to_base64('../../data/src.jpg')
                 ],
                 "prompt": "an astronaut riding a horse",
                 "negative_prompt": "",
                 "seed": -1,
                 "batch_size": 1,
+                "denoising_strength": 0.75,
                 "steps": 30,
                 "cfg_scale": 7,
-                "width": 512,
-                "height": 512,
+                "width": 480,
+                "height": 640,
                 "sampler_name": "DPM++ SDE Karras",
                 "sampler_index": "DPM++ SDE Karras",
-                "restore_faces": False
+                "restore_faces": True
             }
         }
     }

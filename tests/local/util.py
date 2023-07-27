@@ -17,14 +17,22 @@ def encode_image_to_base64(image_path):
         return encoded_data
 
 
-def save_result_image(resp_json):
-    img = Image.open(io.BytesIO(base64.b64decode(resp_json['output']['image'])))
-    file_extension = 'jpeg' if OUTPUT_FORMAT == 'JPEG' else 'png'
-    output_file = f'{uuid.uuid4()}.{file_extension}'
+def save_result_images(resp_json):
+    for output_image in resp_json['output']['images']:
+        img = Image.open(io.BytesIO(base64.b64decode(output_image)))
+        file_extension = 'jpeg' if OUTPUT_FORMAT == 'JPEG' else 'png'
+        output_file = f'{uuid.uuid4()}.{file_extension}'
 
-    with open(output_file, 'wb') as f:
-        print(f'Saving image: {output_file}')
-        img.save(f, format=OUTPUT_FORMAT)
+        with open(output_file, 'wb') as f:
+            print(f'Saving image: {output_file}')
+            img.save(f, format=OUTPUT_FORMAT)
+
+
+def handle_response(resp_json):
+    if 'images' in resp_json['output']:
+        save_result_images(resp_json)
+    else:
+        print(json.dumps(resp_json, indent=4, default=str))
 
 
 def post_request(payload):
@@ -39,7 +47,7 @@ def post_request(payload):
         resp_json = r.json()
 
         if 'output' in resp_json:
-            print(json.dumps(resp_json, indent=4, default=str))
+            handle_response(resp_json)
         else:
             job_status = resp_json['status']
             print(f'Job status: {job_status}')
@@ -68,7 +76,7 @@ def post_request(payload):
                         elif job_status == 'COMPLETED':
                             request_in_queue = False
                             print(f'RunPod request {request_id} completed')
-                            print(json.dumps(resp_json, indent=4, default=str))
+                            handle_response(resp_json)
                         elif job_status == 'TIMED_OUT':
                             request_in_queue = False
                             print(f'ERROR: RunPod request {request_id} timed out')
