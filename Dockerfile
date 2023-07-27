@@ -6,6 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+WORKDIR /
+
 # Upgrade apt packages and install required dependencies
 RUN apt update && \
     apt upgrade -y && \
@@ -25,15 +27,18 @@ RUN apt update && \
       libxrender1 \
       libxext6 \
       ffmpeg \
-      libgoogle-perftools-dev \
+      libgoogle-perftools4 \
+      libtcmalloc-minimal4 \
       procps && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean -y
 
+# Remove the empty workspace directory, link to runpod network volume
+RUN rm -rf /workspace && \
+    ln -s /runpod-volume /workspace
 
 # Add RunPod Handler and Docker container start script
-WORKDIR /
 COPY start.sh rp_handler.py ./
 
 # Start the container
