@@ -5,8 +5,8 @@ import uuid
 import base64
 import requests
 from PIL import Image
+from dotenv import dotenv_values
 
-BASE_URL = f'http://127.0.0.1:8000'
 OUTPUT_FORMAT = 'JPEG'
 
 
@@ -36,8 +36,20 @@ def handle_response(resp_json):
 
 
 def post_request(payload):
+    env = dotenv_values('.env')
+    runpod_api_key = env.get('RUNPOD_API_KEY', None)
+    runpod_endpoint_id = env.get('RUNPOD_ENDPOINT_ID', None)
+
+    if runpod_api_key is not None and runpod_endpoint_id is not None:
+        base_url = f'https://api.runpod.ai/v2/{runpod_endpoint_id}'
+    else:
+        base_url = f'http://127.0.0.1:8000'
+
     r = requests.post(
-        f'{BASE_URL}/runsync',
+        f'{base_url}/runsync',
+        headers={
+            'Authorization': f'Bearer {runpod_api_key}'
+        },
         json=payload
     )
 
@@ -58,7 +70,10 @@ def post_request(payload):
 
                 while request_in_queue:
                     r = requests.get(
-                        f'{BASE_URL}/status/{request_id}',
+                        f'{base_url}/status/{request_id}',
+                        headers={
+                            'Authorization': f'Bearer {runpod_api_key}'
+                        },
                     )
 
                     print(f'Status code from RunPod status endpoint: {r.status_code}')
