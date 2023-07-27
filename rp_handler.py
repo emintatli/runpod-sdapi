@@ -123,7 +123,7 @@ def handler(event):
 
 
 if __name__ == "__main__":
-    # wait_for_service(url='http://127.0.0.1:3000/sdapi/v1/sd-models')
+    wait_for_service(url='http://127.0.0.1:3000/sdapi/v1/sd-models')
     logger.log('Automatic1111 API is ready', 'INFO')
     logger.log('Starting RunPod Serverless...', 'INFO')
     runpod.serverless.start(
