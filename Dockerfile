@@ -39,6 +39,7 @@ RUN pip install requests runpod==0.10.0
 
 # Add RunPod Handler and Docker container start script
 COPY start.sh rp_handler.py ./
+COPY schemas /schemas
 
 # Start the container
 RUN chmod +x /start.sh
