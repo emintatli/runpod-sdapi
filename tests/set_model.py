@@ -3,16 +3,15 @@ from util import post_request
 
 
 if __name__ == '__main__':
-    base_url = f'http://127.0.0.1:8000'
-
-    # Create the payload dictionary
     payload = {
         "input": {
             "api": {
-                "method": "GET",
-                "endpoint": "/sdapi/v1/prompt-styles"
+                "method": "POST",
+                "endpoint": "/sdapi/v1/options"
             },
-            "payload": {}
+            "payload": {
+                "sd_model_checkpoint": "deliberate_v2.safetensors"
+            }
         }
     }
 
