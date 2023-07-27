@@ -27,4 +27,4 @@ python /workspace/stable-diffusion-webui/webui.py \
 deactivate
 
 echo "Starting RunPod Handler"
-python -u /rp_handler.py
+python3 -u /rp_handler.py
