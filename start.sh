@@ -24,7 +24,6 @@ python /workspace/stable-diffusion-webui/webui.py \
   --skip-version-check \
   --no-hashing \
   --no-download-sd-model /workspace/logs/webui.log 2>&1 &
-deactivate
 
 echo "Starting RunPod Handler"
 python -u /rp_handler.py
