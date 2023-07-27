@@ -9,7 +9,7 @@ from schemas.img2img import IMG2IMG_SCHEMA
 from schemas.txt2img import TXT2IMG_SCHEMA
 from schemas.options import OPTIONS_SCHEMA
 
-BASE_URL = 'http://127.0.0.1:3000/sdapi/v1'
+BASE_URL = 'http://127.0.0.1:3000'
 TIMEOUT = 600
 
 session = requests.Session()
