@@ -10,26 +10,26 @@ API_SCHEMA = {
     'endpoint': {
         'type': str,
         'required': True,
-        'constraints': lambda method: method in [
-            '/sdapi/v1/txt2img',
-            '/sdapi/v1/img2img',
-            '/sdapi/v1/sd-models',
-            '/sdapi/v1/options',
-            '/sdapi/v1/samplers',
-            '/sdapi/v1/upscalers',
-            '/sdapi/v1/sd-vae',
-            '/sdapi/v1/hypernetworks',
-            '/sdapi/v1/face-restorers',
-            '/sdapi/v1/realesgran-models',
-            '/sdapi/v1/prompt-styles',
-            '/sdapi/v1/embeddings',
-            '/sdapi/v1/memory',
-            '/sdapi/v1/scripts',
-            '/sdapi/v1/script-info',
-            '/sdapi/v1/loras',
-            '/controlnet/model-list',
-            '/sdapi/v1/refresh-checkpoints',
-            '/sdapi/v1/refresh-loras'
+        'constraints': lambda endpoint: endpoint in [
+            'sdapi/v1/txt2img',
+            'sdapi/v1/img2img',
+            'sdapi/v1/sd-models',
+            'sdapi/v1/options',
+            'sdapi/v1/samplers',
+            'sdapi/v1/upscalers',
+            'sdapi/v1/sd-vae',
+            'sdapi/v1/hypernetworks',
+            'sdapi/v1/face-restorers',
+            'sdapi/v1/realesgran-models',
+            'sdapi/v1/prompt-styles',
+            'sdapi/v1/embeddings',
+            'sdapi/v1/memory',
+            'sdapi/v1/scripts',
+            'sdapi/v1/script-info',
+            'sdapi/v1/loras',
+            'controlnet/model-list',
+            'sdapi/v1/refresh-checkpoints',
+            'sdapi/v1/refresh-loras'
         ]
     }
 }
