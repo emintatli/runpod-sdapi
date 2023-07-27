@@ -13,6 +13,7 @@ RUN apt update && \
     apt upgrade -y && \
     apt install -y \
       python3-dev \
+      python3-pip \
       fonts-dejavu-core \
       rsync \
       git \
@@ -33,6 +34,8 @@ RUN apt update && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean -y
+
+RUN pip install requests runpod==0.10.0
 
 # Add RunPod Handler and Docker container start script
 COPY start.sh rp_handler.py ./
