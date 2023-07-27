@@ -88,6 +88,7 @@ def post_request(payload):
                         elif job_status == 'FAILED':
                             request_in_queue = False
                             print(f'RunPod request {request_id} failed')
+                            print(json.dumps(resp_json, indent=4, default=str))
                         elif job_status == 'COMPLETED':
                             request_in_queue = False
                             print(f'RunPod request {request_id} completed')

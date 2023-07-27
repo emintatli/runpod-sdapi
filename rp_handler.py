@@ -111,7 +111,7 @@ def handler(event):
         logger.log(f'Sending {method} request to: {endpoint}')
 
         if method == 'GET':
-            response = send_get_request(endpoint, payload)
+            response = send_get_request(endpoint)
         elif method == 'POST':
             response = send_post_request(endpoint, payload)
     except Exception as e:
