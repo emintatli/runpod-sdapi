@@ -23,14 +23,20 @@ logger = RunPodLogger()
 # ---------------------------------------------------------------------------- #
 
 def wait_for_service(url):
+    retries = 0
+
     while True:
         try:
             requests.get(url)
             return
         except requests.exceptions.RequestException:
-            print('Service not ready yet. Retrying...')
+            retries += 1
+
+            # Only log every 15 retries so the logs don't get spammed
+            if retries % 15 == 0:
+                logger.info('Service not ready yet. Retrying...')
         except Exception as err:
-            print(f'Error: {err}')
+            logger.error(f'Error: {err}')
 
         time.sleep(0.2)
 
