@@ -21,7 +21,7 @@ if __name__ == '__main__':
                 "negative_prompt": "",
                 "seed": -1,
                 "batch_size": 1,
-                "denoising_strength": 0.75,
+                "denoising_strength": 0.55,
                 "steps": 30,
                 "cfg_scale": 10,
                 "width": 480,

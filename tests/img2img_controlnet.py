@@ -15,7 +15,7 @@ if __name__ == '__main__':
                 "init_images": [
                     image_content
                 ],
-                "prompt": "an astronaut riding a horse",
+                "prompt": "at the ocean",
                 "negative_prompt": "",
                 "seed": -1,
                 "batch_size": 1,

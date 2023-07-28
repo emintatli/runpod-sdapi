@@ -60,6 +60,7 @@ was successful.
 * [Refresh Checkpoints](docs/api/refresh-checkpoints.md)
 * [Refresh Loras](docs/api/refresh-loras.md)
 * [Set Model](docs/api/set-model.md)
+* [Set VAE](docs/api/set-vae.md)
 * [Text to Image](docs/api/txt2img.md)
 
 
