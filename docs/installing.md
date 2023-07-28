@@ -1,24 +1,12 @@
 # Install Automatic1111 Web UI on your Network Volume
 
-You can either launch a new pod with a Network Volume attached
-by using my [Stable Diffusion Web UI](
-https://runpod.io/gsc?template=ya6013lj5a&ref=2xxro4sy) custom
-[RunPod](https://runpod.io?ref=2xxro4sy) template, or alternatively,
-you can install it manually following instructions below.  If you
-choose to use my custom template, it is **VERY IMPORTANT** to
-ensure that you first create a Network Volume and then attach
-it when launching the new pod in **Secure Cloud**.  You cannot
-launch a pod with a Network Volume in Community Cloud.
-
 1. [Create a RunPod Account](https://runpod.io?ref=2xxro4sy).
 2. Create a [RunPod Network Volume](https://www.runpod.io/console/user/storage).
 3. Attach the Network Volume to a Secure Cloud [GPU pod](https://www.runpod.io/console/gpu-secure-cloud).
 4. Select a light-weight template such as RunPod Pytorch.
 5. Deploy the GPU Cloud pod.
 6. Once the pod is up, open a Terminal and install the required
-   dependencies if you have opted for a manual installation
-   (you can skip to step 7 below if you have opted to use my
-   custom template):
+   dependencies:
 ```bash
 # Clone the repo
 cd /workspace
@@ -46,9 +34,7 @@ pip install -r requirements.txt
 ```
 7. Install the Serverless dependencies:
 ```bash
-deactivate
 cd /workspace/stable-diffusion-webui
-source /workspace/venv/bin/activate
 pip3 install huggingface_hub runpod>=0.10.0
 ```
 8. Download some models, for example `Deliberate v2`:
