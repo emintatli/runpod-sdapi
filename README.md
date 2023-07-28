@@ -40,8 +40,28 @@ was successful.
 
 ### RunPod API Examples
 
-* [Text to Image](docs/api/txt2img.md)
+* [Get ControlNet Models](docs/api/get-controlnet-models.md)
+* [Get Embeddings](docs/api/get-embeddings.md)
+* [Get Face Restorers](docs/api/get-face-restorers.md)
+* [Get Hypernetworks](docs/api/get-hypernetworks.md)
+* [Get Loras](docs/api/get-loras.md)
+* [Get Memory](docs/api/get-memory.md)
+* [Get Models](docs/api/get-models.md)
+* [Get Options](docs/api/get-options.md)
+* [Get Prompt Styles](docs/api/get-prompt-styles.md)
+* [Get Real-ESRGAN Models](docs/api/get-realesrgan-models.md)
+* [Get Samplers](docs/api/get-samplers.md)
+* [Get Script Info](docs/api/get-script-info.md)
+* [Get Scripts](docs/api/get-scripts.md)
+* [Get Upscalers](docs/api/get-upscalers.md)
+* [Get VAE](docs/api/get-vae.md)
 * [Image to Image](docs/api/img2img.md)
+* [Image to Image with ControlNet](docs/api/img2img-controlnet.md)
+* [Refresh Checkpoints](docs/api/refresh-checkpoints.md)
+* [Refresh Loras](docs/api/refresh-loras.md)
+* [Set Model](docs/api/set-model.md)
+* [Text to Image](docs/api/txt2img.md)
+
 
 ### Endpoint Status Codes
 

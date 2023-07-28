@@ -98,7 +98,10 @@ def post_request(payload):
                             request_in_queue = False
                             print(f'ERROR: Invalid status response from RunPod status endpoint')
                             print(json.dumps(resp_json, indent=4, default=str))
-            elif job_status == 'COMPLETED' and resp_json['output']['status'] == 'error':
+            elif job_status == 'COMPLETED' \
+                    and 'output' in resp_json \
+                    and 'status' in resp_json['output'] \
+                    and resp_json['output']['status'] == 'error':
                 print(f'ERROR: {resp_json["output"]["message"]}')
             else:
                 print(json.dumps(resp_json, indent=4, default=str))
