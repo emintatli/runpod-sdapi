@@ -51,8 +51,32 @@ cd /workspace/stable-diffusion-webui
 source /workspace/venv/bin/activate
 pip3 install huggingface_hub runpod>=0.10.0
 ```
-8. Download a model, for example `Deliberate v2`:
+8. Download some models, for example `Deliberate v2`:
 ```bash
 cd /workspace/stable-diffusion-webui/models/Stable-diffusion
 wget -O deliberate_v2.safetensors https://civitai.com/api/download/models/15236
+```
+9. Download ControlNet models, for example `canny`:
+```bash
+mkdir -p /workspace/stable-diffusion-webui/models/ControlNet
+cd /workspace/stable-diffusion-webui/models/ControlNet
+wget https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny.pth
+```
+10. Create logs directory:
+```bash
+mkdir -p /workspace/logs
+```
+11. Install config files:
+```bash
+cd /workspace/stable-diffusion-webui
+rm webui-user.sh config.json ui-config.json
+wget https://raw.githubusercontent.com/ashleykleynhans/runpod-worker-a1111/main/webui-user.sh
+wget https://raw.githubusercontent.com/ashleykleynhans/runpod-worker-a1111/main/config.json
+wget https://raw.githubusercontent.com/ashleykleynhans/runpod-worker-a1111/main/ui-config.json
+```
+12. Run the Web UI:
+```bash
+deactivate
+cd /workspace/stable-diffusion-webui
+./webui.sh -f
 ```
