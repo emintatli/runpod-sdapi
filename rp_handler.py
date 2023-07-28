@@ -72,7 +72,7 @@ def validate_payload(event):
     method = event['input']['api']['method']
     endpoint = event['input']['api']['endpoint']
     payload = event['input']['payload']
-    validated_input = {}
+    validated_input = payload
 
     if endpoint == 'txt2img':
         validated_input = validate(payload, TXT2IMG_SCHEMA)
@@ -105,10 +105,10 @@ def handler(event):
     if 'validated_input' in validated_input:
         payload = validated_input['validated_input']
     else:
-        payload = {}
+        payload = validated_input
 
     try:
-        logger.log(f'Sending {method} request to: {endpoint}')
+        logger.log(f'Sending {method} request to: /{endpoint}')
 
         if method == 'GET':
             response = send_get_request(endpoint)

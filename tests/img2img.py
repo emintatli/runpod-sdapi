@@ -11,15 +11,15 @@ if __name__ == '__main__':
             },
             "payload": {
                 "init_images": [
-                    encode_image_to_base64('../../data/src.jpg')
+                    encode_image_to_base64('../data/src.jpg')
                 ],
-                "prompt": "an astronaut riding a horse",
+                "prompt": "at the ocean",
                 "negative_prompt": "",
                 "seed": -1,
                 "batch_size": 1,
                 "denoising_strength": 0.75,
                 "steps": 30,
-                "cfg_scale": 7,
+                "cfg_scale": 12,
                 "width": 480,
                 "height": 640,
                 "sampler_name": "DPM++ SDE Karras",
