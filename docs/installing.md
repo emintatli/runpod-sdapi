@@ -77,6 +77,7 @@ wget https://raw.githubusercontent.com/ashleykleynhans/runpod-worker-a1111/main/
 12. Run the Web UI:
 ```bash
 deactivate
+export HF_HOME="/workspace"
 cd /workspace/stable-diffusion-webui
 ./webui.sh -f
 ```
