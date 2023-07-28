@@ -8,7 +8,10 @@ rm -rf /workspace && \
 
 echo "Starting WebUI API"
 source /workspace/venv/bin/activate
-export LD_PRELOAD=libtcmalloc.so
+TCMALLOC="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
+export LD_PRELOAD="${TCMALLOC}"
+export PYTHONUNBUFFERED=true
+export HF_HOME="/workspace"
 python /workspace/stable-diffusion-webui/webui.py \
   --xformers \
   --skip-python-version-check \
