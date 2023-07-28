@@ -63,6 +63,9 @@ was successful.
 * [Set VAE](docs/api/set-vae.md)
 * [Text to Image](docs/api/txt2img.md)
 
+### Optional Webhook Callbacks
+
+You can optionally [Enable a Webhook](docs/api/webhook.md).
 
 ### Endpoint Status Codes
 
