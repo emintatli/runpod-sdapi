@@ -7,7 +7,7 @@ if __name__ == '__main__':
         "input": {
             "api": {
                 "method": "GET",
-                "endpoint": "/sdapi/v1/realesgran-models"
+                "endpoint": "/sdapi/v1/realesrgan-models"
             },
             "payload": {}
         }

@@ -10,7 +10,7 @@ if __name__ == '__main__':
                 "endpoint": "/sdapi/v1/options"
             },
             "payload": {
-                "sd_model_checkpoint": "deliberate_v2.safetensors"
+                "sd_model_checkpoint": "deliberate_v2"
             }
         }
     }

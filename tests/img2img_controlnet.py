@@ -11,7 +11,7 @@ if __name__ == '__main__':
             },
             "payload": {
                 "init_images": [
-                    encode_image_to_base64('../../data/src.jpg')
+                    encode_image_to_base64('../data/src.jpg')
                 ],
                 "prompt": "an astronaut riding a horse",
                 "negative_prompt": "",

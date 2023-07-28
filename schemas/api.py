@@ -20,14 +20,14 @@ API_SCHEMA = {
             'sdapi/v1/sd-vae',
             'sdapi/v1/hypernetworks',
             'sdapi/v1/face-restorers',
-            'sdapi/v1/realesgran-models',
+            'sdapi/v1/realesrgan-models',
             'sdapi/v1/prompt-styles',
             'sdapi/v1/embeddings',
             'sdapi/v1/memory',
             'sdapi/v1/scripts',
             'sdapi/v1/script-info',
             'sdapi/v1/loras',
-            'controlnet/model-list',
+            'controlnet/model_list',
             'sdapi/v1/refresh-checkpoints',
             'sdapi/v1/refresh-loras'
         ]

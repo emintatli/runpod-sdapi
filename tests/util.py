@@ -29,7 +29,7 @@ def save_result_images(resp_json):
 
 
 def handle_response(resp_json):
-    if 'images' in resp_json['output']:
+    if resp_json['output'] is not None and 'images' in resp_json['output']:
         save_result_images(resp_json)
     else:
         print(json.dumps(resp_json, indent=4, default=str))

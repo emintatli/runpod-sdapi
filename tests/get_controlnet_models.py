@@ -7,7 +7,7 @@ if __name__ == '__main__':
         "input": {
             "api": {
                 "method": "GET",
-                "endpoint": "/controlnet/model-list"
+                "endpoint": "/controlnet/model_list"
             },
             "payload": {}
         }
