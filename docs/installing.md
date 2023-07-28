@@ -26,7 +26,7 @@ git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 
 # Create and activate venv
 cd stable-diffusion-webui
-python -m venv --system-site-packages /workspace/venv
+python -m venv /workspace/venv
 source /workspace/venv/bin/activate
 
 # Install Torch and xformers
