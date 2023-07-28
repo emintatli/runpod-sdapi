@@ -3,15 +3,17 @@ from util import *
 
 
 if __name__ == '__main__':
+    image_content = encode_image_to_base64('../data/src.jpg')
+
     payload = {
         "input": {
             "api": {
                 "method": "POST",
-                "endpoint": "/sdapi/v1/txt2img"
+                "endpoint": "/sdapi/v1/img2img"
             },
             "payload": {
                 "init_images": [
-                    encode_image_to_base64('../data/src.jpg')
+                    image_content
                 ],
                 "prompt": "an astronaut riding a horse",
                 "negative_prompt": "",
@@ -24,13 +26,13 @@ if __name__ == '__main__':
                 "height": 640,
                 "sampler_name": "DPM++ SDE Karras",
                 "sampler_index": "DPM++ SDE Karras",
-                "restore_faces": True,
+                "restore_faces": False,
                 "alwayson_scripts": {
                     "controlnet": {
                         "args": [
                             {
                                 "module": "canny",
-                                "model": "control_v11p_sd15_canny [d14c016b]",
+                                "model": "control_v11p_sd15_canny",
                                 "weight": 1,
                                 "resize_mode": "Crop and Resize",
                                 "lowvram": False,

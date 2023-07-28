@@ -12,9 +12,7 @@ OUTPUT_FORMAT = 'JPEG'
 
 def encode_image_to_base64(image_path):
     with open(image_path, 'rb') as image_file:
-        image_data = image_file.read()
-        encoded_data = base64.b64encode(image_data).decode('utf-8')
-        return encoded_data
+        return str(base64.b64encode(image_file.read()).decode('utf-8'))
 
 
 def save_result_images(resp_json):
