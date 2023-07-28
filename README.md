@@ -14,10 +14,11 @@ Network Volume.
 1. [Local Testing](docs/testing/local.md)
 2. [RunPod Testing](docs/testing/runpod.md)
 
-## Building the Docker image that will be used by the Serverless Worker
+## Installing and Building the Serverless Worker
 
-This RunPod Serverless Worker requires a [Network Volume](
-docs/building.md).
+1. [Install Automatic1111 Web UI on your Network Volume](
+docs/installing.md)
+2. [Building the Docker image](docs/building.md)
 
 ## RunPod API Endpoint
 
