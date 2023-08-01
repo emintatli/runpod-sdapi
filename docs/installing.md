@@ -12,6 +12,13 @@
 cd /workspace
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 
+# Upgrade Python
+apt update
+apt upgrade
+
+# Ensure Python version is 3.10.12
+python3 -V
+
 # Create and activate venv
 cd stable-diffusion-webui
 python -m venv /workspace/venv
