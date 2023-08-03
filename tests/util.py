@@ -10,6 +10,18 @@ from dotenv import dotenv_values
 OUTPUT_FORMAT = 'JPEG'
 
 
+class Timer:
+    def __init__(self):
+        self.start = time.time()
+
+    def restart(self):
+        self.start = time.time()
+
+    def get_elapsed_time(self):
+        end = time.time()
+        return round(end - self.start, 1)
+
+
 def encode_image_to_base64(image_path):
     with open(image_path, 'rb') as image_file:
         return str(base64.b64encode(image_file.read()).decode('utf-8'))
@@ -26,14 +38,18 @@ def save_result_images(resp_json):
             img.save(f, format=OUTPUT_FORMAT)
 
 
-def handle_response(resp_json):
+def handle_response(resp_json, timer):
     if resp_json['output'] is not None and 'images' in resp_json['output']:
         save_result_images(resp_json)
     else:
         print(json.dumps(resp_json, indent=4, default=str))
 
+    total_time = timer.get_elapsed_time()
+    print(f'Total time taken for RunPod Serverless API call {total_time} seconds')
+
 
 def post_request(payload):
+    timer = Timer()
     env = dotenv_values('.env')
     runpod_api_key = env.get('RUNPOD_API_KEY', None)
     runpod_endpoint_id = env.get('RUNPOD_ENDPOINT_ID', None)
@@ -57,7 +73,7 @@ def post_request(payload):
         resp_json = r.json()
 
         if 'output' in resp_json:
-            handle_response(resp_json)
+            handle_response(resp_json, timer)
         else:
             job_status = resp_json['status']
             print(f'Job status: {job_status}')
@@ -90,7 +106,7 @@ def post_request(payload):
                         elif job_status == 'COMPLETED':
                             request_in_queue = False
                             print(f'RunPod request {request_id} completed')
-                            handle_response(resp_json)
+                            handle_response(resp_json, timer)
                         elif job_status == 'TIMED_OUT':
                             request_in_queue = False
                             print(f'ERROR: RunPod request {request_id} timed out')
