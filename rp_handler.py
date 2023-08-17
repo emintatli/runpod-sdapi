@@ -1,7 +1,12 @@
 import time
 import requests
 import runpod
+import shutil
+import os
+import uuid
+from urllib.parse import urlparse
 from runpod.serverless.utils.rp_validator import validate
+from runpod.serverless.utils import download_files_from_urls
 from runpod.serverless.modules.rp_logger import RunPodLogger
 from requests.adapters import HTTPAdapter, Retry
 from schemas.api import API_SCHEMA
@@ -73,12 +78,41 @@ def validate_api(event):
 
     return validate(api, API_SCHEMA)
 
+def extract_file_name(url):
+    parsed_url = urlparse(url)
+    path = parsed_url.path
+    file_name = path.split('/')[-1] if '/' in path else path
+    return file_name
+
 
 def validate_payload(event):
     method = event['input']['api']['method']
     endpoint = event['input']['api']['endpoint']
     payload = event['input']['payload']
     validated_input = payload
+
+    # if "ckpt_file" in payload:
+    #     file_name=extract_file_name(payload["ckpt_file"])
+    #     downloaded_files = download_files_from_urls(str(uuid.uuid1()), payload["ckpt_file"])
+    #     shutil.move(downloaded_files[0], '/runpod-volume/stable-diffusion-webui/models/Stable-diffusion/' + file_name)
+    #     send_post_request("/sdapi/v1/refresh-checkpoints", {})
+    #     send_post_request("/sdapi/v1/options", {
+    #         "sd_model_checkpoint":file_name.replace('.ckpt', '')
+    #     })
+    if "ckpt_file" in payload:
+        file_name=payload["file_name"]
+        downloaded_files = download_files_from_urls(str(uuid.uuid1()), payload["ckpt_file"])
+        shutil.move(downloaded_files[0], '/runpod-volume/stable-diffusion-webui/models/Stable-diffusion/' + file_name)
+        refresh=send_post_request("sdapi/v1/refresh-checkpoints", {})
+        logger.info(refresh.content)
+        current_check=send_get_request('sdapi/v1/sd-models')
+        logger.info(current_check.content)
+        current_test=send_post_request("sdapi/v1/options", {
+            "sd_model_checkpoint":payload["select_name"]
+        })
+        logger.info(current_test.content)
+        
+
 
     if endpoint == 'txt2img':
         validated_input = validate(payload, TXT2IMG_SCHEMA)
@@ -94,6 +128,7 @@ def validate_payload(event):
 #                                RunPod Handler                                #
 # ---------------------------------------------------------------------------- #
 def handler(event):
+
     validated_api = validate_api(event)
 
     if 'errors' in validated_api:

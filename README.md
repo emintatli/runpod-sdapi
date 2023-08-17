@@ -1,5 +1,5 @@
 # A1111 Stable Diffusion | RunPod Serverless Worker
-
+runpod-worker-a1111 emintatli$ sudo docker buildx build --push -t autorun12/runpod-worker-a1111-2:2.7.0 . --platform linux/amd64
 This is the source code for a [RunPod](https://runpod.io?ref=2xxro4sy)
 Serverless worker that uses the [Automatic1111 Stable Diffusion API](
 https://github.com/AUTOMATIC1111/stable-diffusion-webui) for inference.

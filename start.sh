@@ -17,7 +17,6 @@ python /workspace/stable-diffusion-webui/webui.py \
   --skip-python-version-check \
   --skip-torch-cuda-test \
   --skip-install \
-  --ckpt /model.safetensors \
   --lowram \
   --opt-sdp-attention \
   --disable-safe-unpickle \
