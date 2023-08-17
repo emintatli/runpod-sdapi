@@ -101,9 +101,6 @@ def validate_payload(event):
     #         "sd_model_checkpoint":file_name.replace('.ckpt', '')
     #     })
     if "ckpt_file" in payload:
-        files = glob.glob('/runpod-volume/stable-diffusion-webui/models/Stable-diffusion/*')
-        for f in files:
-            os.remove(f)
         file_name=extract_file_name(payload["ckpt_file"])
         downloaded_files = download_files_from_urls(str(uuid.uuid1()), payload["ckpt_file"])
         shutil.move(downloaded_files[0], '/runpod-volume/stable-diffusion-webui/models/Stable-diffusion/' + file_name)
@@ -160,6 +157,11 @@ def handler(event):
         return {
             'error': str(e)
         }
+    #remove donwloaded ckpt file
+    payload = event['input']['payload']
+    file_name=extract_file_name(payload["ckpt_file"])
+    os.remove('/runpod-volume/stable-diffusion-webui/models/Stable-diffusion/' + file_name)
+
 
     return response.json()
 
