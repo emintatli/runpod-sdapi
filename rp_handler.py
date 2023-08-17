@@ -100,17 +100,14 @@ def validate_payload(event):
     #         "sd_model_checkpoint":file_name.replace('.ckpt', '')
     #     })
     if "ckpt_file" in payload:
-        file_name=payload["file_name"]
+        file_name=extract_file_name(payload["ckpt_file"])
         downloaded_files = download_files_from_urls(str(uuid.uuid1()), payload["ckpt_file"])
         shutil.move(downloaded_files[0], '/runpod-volume/stable-diffusion-webui/models/Stable-diffusion/' + file_name)
-        refresh=send_post_request("sdapi/v1/refresh-checkpoints", {})
-        logger.info(refresh.content)
-        current_check=send_get_request('sdapi/v1/sd-models')
-        logger.info(current_check.content)
-        current_test=send_post_request("sdapi/v1/options", {
-            "sd_model_checkpoint":payload["select_name"]
+        send_post_request("sdapi/v1/refresh-checkpoints", {})
+        send_get_request('sdapi/v1/sd-models')
+        send_post_request("sdapi/v1/options", {
+            "sd_model_checkpoint":file_name.replace('.ckpt', '')
         })
-        logger.info(current_test.content)
         
 
 
