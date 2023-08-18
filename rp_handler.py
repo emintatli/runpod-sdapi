@@ -86,42 +86,6 @@ def extract_file_name(url):
     return file_name
 
 
-def validate_payload(event):
-    method = event['input']['api']['method']
-    endpoint = event['input']['api']['endpoint']
-    payload = event['input']['payload']
-    validated_input = payload
-
-    # if "ckpt_file" in payload:
-    #     file_name=extract_file_name(payload["ckpt_file"])
-    #     downloaded_files = download_files_from_urls(str(uuid.uuid1()), payload["ckpt_file"])
-    #     shutil.move(downloaded_files[0], '/runpod-volume/stable-diffusion-webui/models/Stable-diffusion/' + file_name)
-    #     send_post_request("/sdapi/v1/refresh-checkpoints", {})
-    #     send_post_request("/sdapi/v1/options", {
-    #         "sd_model_checkpoint":file_name.replace('.ckpt', '')
-    #     })
-    if "ckpt_file" in payload:
-        file_name=extract_file_name(payload["ckpt_file"])
-        downloaded_files = download_files_from_urls(str(uuid.uuid1()), payload["ckpt_file"])
-        shutil.move(downloaded_files[0], '/runpod-volume/stable-diffusion-webui/models/Stable-diffusion/' + file_name)
-        send_post_request("sdapi/v1/refresh-checkpoints", {})
-        send_get_request('sdapi/v1/sd-models')
-        send_post_request("sdapi/v1/options", {
-            "sd_model_checkpoint":file_name.replace('.ckpt', '')
-        })
-        
-
-
-    if endpoint == 'txt2img':
-        validated_input = validate(payload, TXT2IMG_SCHEMA)
-    elif endpoint == 'img2img':
-        validated_input = validate(payload, IMG2IMG_SCHEMA)
-    elif endpoint == 'options' and method == 'POST':
-        validated_input = validate(payload, OPTIONS_SCHEMA)
-
-    return endpoint, event['input']['api']['method'], validated_input
-
-
 # ---------------------------------------------------------------------------- #
 #                                RunPod Handler                                #
 # ---------------------------------------------------------------------------- #
@@ -134,36 +98,66 @@ def handler(event):
             'error': validated_api['errors']
         }
 
-    endpoint, method, validated_input = validate_payload(event)
+    method = event['input']['api']['method']
+    endpoint = event['input']['api']['endpoint']
+    payloads = event['input']['payload']
+    input = event['input']
+     
+    if "ckpt_file" in input:
+        file_name=extract_file_name(input["ckpt_file"])
+        downloaded_files = download_files_from_urls(str(uuid.uuid1()), input["ckpt_file"])
+        shutil.move(downloaded_files[0], '/runpod-volume/stable-diffusion-webui/models/Stable-diffusion/' + file_name)
+        send_post_request("sdapi/v1/refresh-checkpoints", {})
+        send_get_request('sdapi/v1/sd-models')
+        send_post_request("sdapi/v1/options", {
+            "sd_model_checkpoint":file_name.replace('.ckpt', '')
+        })
 
-    if 'errors' in validated_input:
-        return {
-            'error': validated_input['errors']
-        }
 
-    if 'validated_input' in validated_input:
-        payload = validated_input['validated_input']
-    else:
-        payload = validated_input
+    # validated_data=[]
+    # for pload in payload:
+    #     if endpoint == 'txt2img':
+    #         validated_input = validate(pload, TXT2IMG_SCHEMA)
+    #         validated_data.append(validated_input)
+    #     elif endpoint == 'img2img':
+    #         validated_input = validate(pload, IMG2IMG_SCHEMA)
+    #         validated_data.append(validated_input)
+    #     elif endpoint == 'options' and method == 'POST':
+    #         validated_input = validate(pload, OPTIONS_SCHEMA)
+    #         validated_data.append(validated_input)
 
+    # if 'errors' in validated_input:
+    #     return {
+    #         'error': validated_input['errors']
+    #     }
+
+    # if 'validated_input' in validated_input:
+    #     payload = validated_input['validated_input']
+    # else:
+    #     payload = validated_input
+    responses = []
     try:
-        logger.log(f'Sending {method} request to: /{endpoint}')
+        for payload in payloads:
+            if method == 'GET':
+                response = send_get_request(endpoint)
+                responses.append((response.json()))
+            elif method == 'POST':
+                response = send_post_request(endpoint, payload)
+                responses.append(response.json())
 
-        if method == 'GET':
-            response = send_get_request(endpoint)
-        elif method == 'POST':
-            response = send_post_request(endpoint, payload)
+            # else:
+            #     payload = validated_input
     except Exception as e:
         return {
             'error': str(e)
         }
     #remove donwloaded ckpt file
-    payload = event['input']['payload']
-    file_name=extract_file_name(payload["ckpt_file"])
-    os.remove('/runpod-volume/stable-diffusion-webui/models/Stable-diffusion/' + file_name)
+    if "ckpt_file" in input:
+        file_name=extract_file_name(input["ckpt_file"])
+        os.remove('/runpod-volume/stable-diffusion-webui/models/Stable-diffusion/' + file_name)
 
 
-    return response.json()
+    return responses
 
 
 if __name__ == "__main__":
